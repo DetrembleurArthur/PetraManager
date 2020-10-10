@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
+   <children>
+      <Button fx:id="disconnectButton" layoutX="556.0" layoutY="516.0" mnemonicParsing="false" text="Disconnect" />
+      <HBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" spacing="50.0">
+         <children>
+            <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" prefHeight="447.0" prefWidth="336.0" text="Actuators">
+               <content>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                     <children>
+                        <ToggleButton fx:id="roller1ToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRoller1_action" text="Roller 1" textAlignment="CENTER" />
+                        <ToggleButton fx:id="roller2ToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Roller 2" />
+                        <ToggleButton fx:id="tubToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tub" />
+                        <ToggleButton fx:id="armToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Arm" />
+                        <ToggleButton fx:id="blockerToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Blocker" />
+                        <Button fx:id="suckerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sucker" />
+                        <TitledPane collapsible="false" prefHeight="71.0" prefWidth="285.0" text="Roller arm position">
+                           <content>
+                              <HBox alignment="CENTER" prefHeight="36.0" prefWidth="247.0">
+                                 <children>
+                                    <ToggleButton fx:id="rollerArmTubPositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="Tub">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="rollerArmPositionGroup" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="rollerArmRoller1PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Roller 1" toggleGroup="$rollerArmPositionGroup" />
+                                    <ToggleButton fx:id="rollerArmRoller2PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Roller 2" toggleGroup="$rollerArmPositionGroup" />
+                                    <ToggleButton fx:id="rollerArmRoller12PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Between R1 R2" toggleGroup="$rollerArmPositionGroup" />
+                                 </children>
+                              </HBox>
+                           </content>
+                        </TitledPane>
+                        <HBox alignment="CENTER" spacing="50.0">
+                           <children>
+                              <ToggleButton fx:id="autocommitToggleButton" mnemonicParsing="false" selected="true" text="Autocommit" />
+                              <Button fx:id="commitButton" disable="true" mnemonicParsing="false" text="Commit" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+            <TitledPane collapsible="false" prefHeight="447.0" prefWidth="278.0" text="Sensors">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                     <children>
+                        <Label text="Sensor 1: " />
+                        <Label text="Sensor 2:  " />
+                        <Label text="T: " />
+                        <Label text="Slot: " />
+                        <Label text="Chariot" />
+                        <Label text="Arm" />
+                        <Label text="Diver" />
+                        <Label text="Tub" />
+                     </children>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</AnchorPane>
