@@ -1,10 +1,14 @@
 package hepl.bourgedetrembleur.petra;
 
 import javafx.animation.FadeTransition;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.BlendMode;
 import javafx.util.Duration;
@@ -23,62 +27,43 @@ public class PrimaryController implements Initializable
     private TextField petraIpTextfield;
     @FXML
     public Label errorLabel;
+    @FXML
+    public Button connectButton;
+    @FXML
+    public ProgressIndicator connectionIndicator;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-
+        errorLabel.setText("");
+        connectionIndicator.setDisable(true);
+        connectionIndicator.setVisible(false);
+        App.petraConnectionService.bind(petraIpTextfield.textProperty(), petraPortTextfield.textProperty(), errorLabel.textProperty());
     }
 
     @FXML
     public void connectAction(ActionEvent actionEvent)
     {
-        String ip = petraIpTextfield.getText();
-        String port_s = petraPortTextfield.getText();
-        if(!ip.isBlank())
-        {
+        connectionIndicator.setDisable(false);
+        connectionIndicator.setVisible(true);
+        connectButton.setDisable(true);
+        App.petraConnectionService.reset();
+        App.petraConnectionService.setOnSucceeded(workerStateEvent -> {
             try
             {
-                Inet4Address address = (Inet4Address) Inet4Address.getByName(ip);
-                if (!port_s.isBlank()) {
-                    try {
-                        int port = Integer.parseInt(port_s);
-                        if (port <= 1024 || port > 65535)
-                            throw new NumberFormatException();
-                        App.petra.connect(address, port);
-                        errorLabel.setText("Connected to " + address.getHostAddress());
-
-                        FadeTransition tr = new FadeTransition();
-                        tr.setFromValue(1);
-                        tr.setToValue(0);
-                        tr.setDuration(Duration.millis(2000));
-                        tr.setOnFinished(actionEvent1 -> {
-                            try {
-                                App.setScene("petra");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                        tr.setNode(App.scene.getRoot());
-                        tr.play();
-
-                    } catch (NumberFormatException e) {
-                        errorLabel.setText("port must be an integer between 1024 and 65536");
-                    } catch (IOException e) {
-                        errorLabel.setText("Connection to " + address.getHostAddress() + " failed");
-                    }
-                } else {
-                    errorLabel.setText("port field is empty");
-                }
-            }
-            catch(UnknownHostException e)
+                App.driver = (PetraDriver) workerStateEvent.getSource().getValue();
+                App.setScene("petra");
+            } catch (IOException e)
             {
-                errorLabel.setText("bad ip format");
+                e.printStackTrace();
             }
-        }
-        else
-        {
-            errorLabel.setText("ip field is empty");
-        }
+            connectButton.setDisable(false);
+        });
+        App.petraConnectionService.setOnFailed(workerStateEvent -> {
+            connectButton.setDisable(false);
+            connectionIndicator.setDisable(true);
+            connectionIndicator.setVisible(false);
+        });
+        App.petraConnectionService.start();
     }
 }

@@ -14,8 +14,11 @@ import java.io.IOException;
 public class App extends Application {
 
     public static Scene scene;
-    private static Stage stage;
-    public static final PetraDriver petra = new PetraDriver();
+    public static Stage stage;
+    public static PetraDriver driver;
+    public static PetraConnectionService petraConnectionService = new PetraConnectionService();
+    public static PetraSensorsWatcherService petraSensorsWatcherService = null;
+    public static PetraActuatorsAckService petraActuatorsAckService = null;
 
 
     @Override

@@ -7,71 +7,156 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane scaleShape="false" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="816.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
    <children>
-      <Button fx:id="disconnectButton" layoutX="556.0" layoutY="516.0" mnemonicParsing="false" text="Disconnect" />
-      <HBox alignment="TOP_CENTER" layoutX="14.0" layoutY="14.0" spacing="50.0">
-         <children>
-            <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" prefHeight="447.0" prefWidth="336.0" text="Actuators">
-               <content>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0">
-                     <children>
-                        <ToggleButton fx:id="roller1ToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRoller1_action" text="Roller 1" textAlignment="CENTER" />
-                        <ToggleButton fx:id="roller2ToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Roller 2" />
-                        <ToggleButton fx:id="tubToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tub" />
-                        <ToggleButton fx:id="armToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Arm" />
-                        <ToggleButton fx:id="blockerToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Blocker" />
-                        <Button fx:id="suckerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sucker" />
-                        <TitledPane collapsible="false" prefHeight="71.0" prefWidth="285.0" text="Roller arm position">
-                           <content>
-                              <HBox alignment="CENTER" prefHeight="36.0" prefWidth="247.0">
-                                 <children>
-                                    <ToggleButton fx:id="rollerArmTubPositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="Tub">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="rollerArmPositionGroup" />
-                                       </toggleGroup>
-                                    </ToggleButton>
-                                    <ToggleButton fx:id="rollerArmRoller1PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Roller 1" toggleGroup="$rollerArmPositionGroup" />
-                                    <ToggleButton fx:id="rollerArmRoller2PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Roller 2" toggleGroup="$rollerArmPositionGroup" />
-                                    <ToggleButton fx:id="rollerArmRoller12PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Between R1 R2" toggleGroup="$rollerArmPositionGroup" />
-                                 </children>
-                              </HBox>
-                           </content>
-                        </TitledPane>
-                        <HBox alignment="CENTER" spacing="50.0">
+      <Button fx:id="disconnectButton" layoutX="680.0" layoutY="406.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="22.0" prefWidth="102.0" text="Exit" />
+      <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" text="Actuators">
+         <content>
+            <VBox alignment="TOP_CENTER" prefHeight="274.0" prefWidth="402.0" spacing="30.0">
+               <children>
+                  <TitledPane collapsible="false" prefHeight="75.0" prefWidth="368.0" text="Basics">
+                     <content>
+                        <FlowPane alignment="CENTER" hgap="10.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="270.0" vgap="10.0">
                            <children>
-                              <ToggleButton fx:id="autocommitToggleButton" mnemonicParsing="false" selected="true" text="Autocommit" />
-                              <Button fx:id="commitButton" disable="true" mnemonicParsing="false" text="Commit" />
+                              <ToggleButton fx:id="roller1ToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRoller1_action" text="Roller 1" textAlignment="CENTER" />
+                              <ToggleButton fx:id="roller2ToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRoller2_action" text="Roller 2" />
+                              <ToggleButton fx:id="tubToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsTub_action" text="Tub" />
+                              <ToggleButton fx:id="armToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsArm_action" text="Arm" />
+                              <ToggleButton fx:id="blockerToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsBlocker_action" text="Blocker" />
+                              <Button fx:id="suckerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsSucker_action" prefHeight="26.0" prefWidth="64.0" text="Sucker" />
+                           </children>
+                        </FlowPane>
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="74.0" prefWidth="378.0" text="Roller arm position">
+                     <content>
+                        <HBox alignment="CENTER" prefHeight="36.0" prefWidth="247.0" spacing="10.0">
+                           <children>
+                              <ToggleButton fx:id="rollerArmTubPositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRollerArmTub_action" selected="true" text="Tub">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="rollerArmPositionGroup" />
+                                 </toggleGroup>
+                              </ToggleButton>
+                              <ToggleButton fx:id="rollerArmRoller1PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRollerArmR1_action" text="Roller 1" toggleGroup="$rollerArmPositionGroup" />
+                              <ToggleButton fx:id="rollerArmRoller2PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRollerArmR2_action" text="Roller 2" toggleGroup="$rollerArmPositionGroup" />
+                              <ToggleButton fx:id="rollerArmRoller12PositionToggleButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsRollerArmR1R2_action" text="Between R1 R2" toggleGroup="$rollerArmPositionGroup" />
                            </children>
                         </HBox>
-                     </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-            <TitledPane collapsible="false" prefHeight="447.0" prefWidth="278.0" text="Sensors">
-               <content>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="30.0">
+                     </content>
+                  </TitledPane>
+                  <HBox alignment="CENTER" spacing="50.0">
                      <children>
-                        <Label text="Sensor 1: " />
-                        <Label text="Sensor 2:  " />
-                        <Label text="T: " />
-                        <Label text="Slot: " />
-                        <Label text="Chariot" />
-                        <Label text="Arm" />
-                        <Label text="Diver" />
-                        <Label text="Tub" />
+                        <ToggleButton fx:id="autocommitToggleButton" mnemonicParsing="false" onAction="#actuatorsAutocommit_action" selected="true" text="Autocommit" />
+                        <Button fx:id="commitButton" disable="true" mnemonicParsing="false" onAction="#actuatorsCommit_action" text="Commit" />
                      </children>
-                  </VBox>
-               </content>
-            </TitledPane>
-         </children>
-      </HBox>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </TitledPane>
+      <TitledPane fx:id="sensorsTitledPane" collapsible="false" layoutX="456.0" layoutY="14.0" prefHeight="280.0" prefWidth="338.0" text="Sensors">
+         <content>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="208.0" prefWidth="337.0" vgap="10.0">
+               <children>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Sensor 1">
+                     <content>
+                        <Label fx:id="sensor1Label" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Sensor 2">
+                     <content>
+                        <Label fx:id="sensor2Label" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="T">
+                     <content>
+                        <Label fx:id="tLabel" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Slot">
+                     <content>
+                        <Label fx:id="slotLabel" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Chariot">
+                     <content>
+                        <Label fx:id="chariotLabel" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Arm">
+                     <content>
+                        <Label fx:id="armLabel" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Diver">
+                     <content>
+                        <Label fx:id="diverLabel" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Tub">
+                     <content>
+                        <Label fx:id="tubLabel" text="none" textAlignment="CENTER" />
+                     </content>
+                  </TitledPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </FlowPane>
+         </content>
+      </TitledPane>
+      <TitledPane collapsible="false" layoutX="23.0" layoutY="314.0" prefHeight="117.0" prefWidth="404.0" text="Infos">
+         <content>
+            <FlowPane alignment="TOP_CENTER" hgap="10.0" vgap="10.0">
+               <children>
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Petra Ip">
+                     <content>
+                        <Label fx:id="petraIpLabel" text="Value" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Actuators port">
+                     <content>
+                        <Label fx:id="actuatorsPortLabel" text="Value" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Sensors port">
+                     <content>
+                        <Label fx:id="sensorsPortLabel" text="Value" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Connection">
+                     <content>
+                        <Label fx:id="connectionLabel" text="Value" />
+                     </content>
+                  </TitledPane>
+               </children>
+            </FlowPane>
+         </content>
+      </TitledPane>
+      <TitledPane collapsible="false" layoutX="456.0" layoutY="314.0" prefHeight="118.0" prefWidth="202.0" text="Status">
+         <content>
+            <FlowPane alignment="TOP_CENTER" hgap="10.0" vgap="10.0">
+               <children>
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Actuators">
+                     <content>
+                        <Label fx:id="actuatorsStatusLabel" text="Value" />
+                     </content>
+                  </TitledPane>
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Sensors">
+                     <content>
+                        <Label fx:id="sensorsStatusLabel" text="Value" />
+                     </content>
+                  </TitledPane>
+               </children>
+            </FlowPane>
+         </content>
+      </TitledPane>
    </children>
    <padding>
-      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
    </padding>
 </AnchorPane>

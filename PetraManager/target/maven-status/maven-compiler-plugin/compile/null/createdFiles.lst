@@ -1,4 +1,10 @@
-hepl\bourgedetrembleur\petra\PetraController.class
+hepl\bourgedetrembleur\petra\PetraSensorsWatcherService$1.class
+hepl\bourgedetrembleur\petra\PetraConnectionService$1.class
 hepl\bourgedetrembleur\petra\App.class
+hepl\bourgedetrembleur\petra\PetraConnectionService.class
+hepl\bourgedetrembleur\petra\PetraActuatorsAckService$1.class
+hepl\bourgedetrembleur\petra\PetraController.class
+hepl\bourgedetrembleur\petra\PetraActuatorsAckService.class
+hepl\bourgedetrembleur\petra\PetraSensorsWatcherService.class
 hepl\bourgedetrembleur\petra\PrimaryController.class
 hepl\bourgedetrembleur\petra\PetraDriver.class
