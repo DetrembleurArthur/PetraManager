@@ -1,11 +1,11 @@
 package hepl.bourgedetrembleur.petra;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,7 +18,7 @@ public class PetraController implements Initializable
     @FXML
     private ToggleButton roller2ToggleButton;
     @FXML
-    private Button suckerButton;
+    private ToggleButton suckerButton;
     @FXML
     private ToggleButton tubToggleButton;
     @FXML

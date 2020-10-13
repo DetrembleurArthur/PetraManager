@@ -1,0 +1,26 @@
+
+.label, .button, .text-field
+{
+    -fx-text-fill: white;
+}
+
+.button, .text-field
+{
+    -fx-background-color: #333;
+}
+
+.button:hover, .text-field:hover
+{
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+}
+
+.main-panel
+{
+    -fx-background-color: #444;
+}
+
+.progress-indicator
+{
+    -fx-progress-color: white;
+}

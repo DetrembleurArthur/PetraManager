@@ -1,0 +1,40 @@
+
+.label, .button, .toggle-button
+{
+    -fx-text-fill: white;
+}
+
+.button, .toggle-button
+{
+    -fx-background-color: #333;
+}
+
+.toggle-button:selected
+{
+    -fx-background-color: #555;
+}
+
+.button:hover, .toggle-button:hover
+{
+    -fx-background-color: white;
+    -fx-text-fill: #333;
+}
+
+.main-panel
+{
+    -fx-background-color: #444;
+}
+
+.titled-pane, .title
+{
+    -fx-background-color: #222;
+    -fx-text-fill: white;
+}
+
+.titled-pane, .content
+{
+    -fx-background-color: #333;
+    -fx-text-fill: white;
+}
+
+

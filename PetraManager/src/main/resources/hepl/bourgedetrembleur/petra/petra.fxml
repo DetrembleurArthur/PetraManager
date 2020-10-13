@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="816.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="816.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
    <children>
       <Button fx:id="disconnectButton" layoutX="680.0" layoutY="406.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="22.0" prefWidth="102.0" text="Exit" />
       <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" text="Actuators">
@@ -27,7 +27,7 @@
                               <ToggleButton fx:id="tubToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsTub_action" text="Tub" />
                               <ToggleButton fx:id="armToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsArm_action" text="Arm" />
                               <ToggleButton fx:id="blockerToggleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsBlocker_action" text="Blocker" />
-                              <Button fx:id="suckerButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#actuatorsSucker_action" prefHeight="26.0" prefWidth="64.0" text="Sucker" />
+                              <ToggleButton fx:id="suckerButton" mnemonicParsing="false" onAction="#actuatorsSucker_action" text="Sucker" />
                            </children>
                         </FlowPane>
                      </content>
