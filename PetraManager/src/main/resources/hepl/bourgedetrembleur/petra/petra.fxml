@@ -14,11 +14,11 @@
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="816.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
    <children>
       <Button fx:id="disconnectButton" layoutX="680.0" layoutY="406.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="22.0" prefWidth="102.0" text="Exit" />
-      <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" text="Actuators">
+      <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" styleClass="main-titled-pane" text="Actuators">
          <content>
             <VBox alignment="TOP_CENTER" prefHeight="274.0" prefWidth="402.0" spacing="30.0">
                <children>
-                  <TitledPane collapsible="false" prefHeight="75.0" prefWidth="368.0" text="Basics">
+                  <TitledPane collapsible="false" prefHeight="75.0" prefWidth="368.0" styleClass="sub-titled-pane" text="Basics">
                      <content>
                         <FlowPane alignment="CENTER" hgap="10.0" orientation="VERTICAL" prefHeight="80.0" prefWidth="270.0" vgap="10.0">
                            <children>
@@ -32,7 +32,7 @@
                         </FlowPane>
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="74.0" prefWidth="378.0" text="Roller arm position">
+                  <TitledPane collapsible="false" prefHeight="74.0" prefWidth="378.0" styleClass="sub-titled-pane" text="Roller arm position">
                      <content>
                         <HBox alignment="CENTER" prefHeight="36.0" prefWidth="247.0" spacing="10.0">
                            <children>
@@ -58,46 +58,46 @@
             </VBox>
          </content>
       </TitledPane>
-      <TitledPane fx:id="sensorsTitledPane" collapsible="false" layoutX="456.0" layoutY="14.0" prefHeight="280.0" prefWidth="338.0" text="Sensors">
+      <TitledPane fx:id="sensorsTitledPane" collapsible="false" layoutX="456.0" layoutY="14.0" prefHeight="280.0" prefWidth="338.0" styleClass="main-titled-pane" text="Sensors">
          <content>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="208.0" prefWidth="337.0" vgap="10.0">
                <children>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Sensor 1">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Sensor 1">
                      <content>
                         <Label fx:id="sensor1Label" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Sensor 2">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Sensor 2">
                      <content>
                         <Label fx:id="sensor2Label" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="T">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="T">
                      <content>
                         <Label fx:id="tLabel" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Slot">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Slot">
                      <content>
                         <Label fx:id="slotLabel" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Chariot">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Chariot">
                      <content>
                         <Label fx:id="chariotLabel" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Arm">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Arm">
                      <content>
                         <Label fx:id="armLabel" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Diver">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Diver">
                      <content>
                         <Label fx:id="diverLabel" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" text="Tub">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Tub">
                      <content>
                         <Label fx:id="tubLabel" text="none" textAlignment="CENTER" />
                      </content>
@@ -109,26 +109,26 @@
             </FlowPane>
          </content>
       </TitledPane>
-      <TitledPane collapsible="false" layoutX="23.0" layoutY="314.0" prefHeight="117.0" prefWidth="404.0" text="Infos">
+      <TitledPane collapsible="false" layoutX="23.0" layoutY="314.0" prefHeight="117.0" prefWidth="404.0" styleClass="main-titled-pane" text="Infos">
          <content>
             <FlowPane alignment="TOP_CENTER" hgap="10.0" vgap="10.0">
                <children>
-                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Petra Ip">
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" styleClass="sub-titled-pane" text="Petra Ip">
                      <content>
                         <Label fx:id="petraIpLabel" text="Value" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Actuators port">
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" styleClass="sub-titled-pane" text="Actuators port">
                      <content>
                         <Label fx:id="actuatorsPortLabel" text="Value" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Sensors port">
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" styleClass="sub-titled-pane" text="Sensors port">
                      <content>
                         <Label fx:id="sensorsPortLabel" text="Value" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Connection">
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" styleClass="sub-titled-pane" text="Connection">
                      <content>
                         <Label fx:id="connectionLabel" text="Value" />
                      </content>
@@ -137,16 +137,16 @@
             </FlowPane>
          </content>
       </TitledPane>
-      <TitledPane collapsible="false" layoutX="456.0" layoutY="314.0" prefHeight="118.0" prefWidth="202.0" text="Status">
+      <TitledPane collapsible="false" layoutX="456.0" layoutY="314.0" prefHeight="118.0" prefWidth="202.0" styleClass="main-titled-pane" text="Status">
          <content>
             <FlowPane alignment="TOP_CENTER" hgap="10.0" vgap="10.0">
                <children>
-                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Actuators">
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" styleClass="sub-titled-pane" text="Actuators">
                      <content>
                         <Label fx:id="actuatorsStatusLabel" text="Value" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" text="Sensors">
+                  <TitledPane collapsible="false" prefHeight="66.0" prefWidth="81.0" styleClass="sub-titled-pane" text="Sensors">
                      <content>
                         <Label fx:id="sensorsStatusLabel" text="Value" />
                      </content>
