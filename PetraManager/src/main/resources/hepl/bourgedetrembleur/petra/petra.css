@@ -1,5 +1,5 @@
 
-.label, .button, .toggle-button
+.label, .button, .toggle-button, .text-field
 {
     -fx-text-fill: white;
 }
@@ -8,36 +8,46 @@
 .button, .toggle-button
 {
 	-fx-background-radius: 10;
-    -fx-background-color: #668;
+    -fx-background-color: #225;
     -fx-border-radius:  10;
     -fx-border-color: #222;
     -fx-border-width: 3px;
+    -fx-background-insets: 1px;
+    -fx-cursor: hand;
+}
+
+.button:focused, .toggle-button:focused
+{
+    -fx-border-radius:  3;
+}
+
+.text-field
+{
+    -fx-background-radius: 5;
+    -fx-background-color: #226;
+    -fx-border-radius: 5;
+    -fx-border-color: #113;
+    -fx-border-width: 2px;
     -fx-background-insets: 1px;
 }
 
 .toggle-button:selected
 {
-    -fx-background-color: #aaf;
+    -fx-background-color: #88f;
     -fx-text-fill: black;
-    -fx-border-color: linear-gradient(to bottom right, #aaf, blue);
+    -fx-border-color: #335;
 }
 
-.button:hover, .toggle-button:hover
+.button:hover, .toggle-button:hover, .text-field:hover
 {
-    -fx-border-color: linear-gradient(to bottom right, #00f, #f00);
-    -fx-background-color: #88a;
-    -fx-text-size: 18;
+    -fx-background-color: #44a;
 }
 
-.button:pressed, .toggle-button:pressed
-{
-	-fx-background-color: #55a;
-}
 
 
 .label:hover
 {
-	-fx-font-size:22;
+	-fx-underline: true;
 }
 
 .main-panel
@@ -68,4 +78,7 @@
 	-fx-background-radius: 1 1 5 5;
 }
 
-
+.progress-indicator
+{
+    -fx-progress-color: #23b;
+}

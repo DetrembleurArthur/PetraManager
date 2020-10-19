@@ -1,8 +1,5 @@
 package hepl.bourgedetrembleur.petra;
 
-import javafx.animation.FadeTransition;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,13 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.BlendMode;
-import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
 public class PrimaryController implements Initializable

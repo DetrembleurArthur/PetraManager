@@ -1,11 +1,15 @@
 package hepl.bourgedetrembleur.petra;
 
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
+import javafx.geometry.Point3D;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -74,6 +78,9 @@ public class PetraController implements Initializable
     @FXML
     private Label sensorsStatusLabel;
 
+    @FXML
+    private Box myBox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
@@ -115,82 +122,116 @@ public class PetraController implements Initializable
                 tubLabel.setText(Integer.toString((t1 >> 7) & 1));
             });
             App.petraSensorsWatcherService.start();
+
+            PhongMaterial material = new PhongMaterial();
+            material.setDiffuseMap(new Image(getClass().getResourceAsStream("PETRA.png")));
+            myBox.setMaterial(material);
+            myBox.setRotationAxis(myBox.getRotationAxis().add(0.2, 1, 0.8));
+            Timeline timeline = new Timeline(new KeyFrame(Duration.ONE, actionEvent -> {
+                myBox.setRotate(myBox.getRotate()+0.075);
+                System.out.println("test");
+            }));
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.playFromStart();
         } catch (IOException e)
         {
             e.printStackTrace();
         }
     }
 
+    private void flipAnimation(Node node)
+    {
+        RotateTransition tr = new RotateTransition();
+        tr.setNode(node);
+        tr.setAxis(new Point3D(0, 1, 0));
+        tr.setFromAngle(0);
+        tr.setToAngle(360);
+        tr.setDuration(Duration.millis(250));
+        tr.play();
+    }
+
     @FXML
     public void actuatorsRoller1_action()
     {
         App.driver.action(PetraDriver.ROLLER1);
+        flipAnimation(roller1ToggleButton);
     }
 
     @FXML
     public void actuatorsRoller2_action()
     {
         App.driver.action(PetraDriver.ROLLER2);
+        flipAnimation(roller2ToggleButton);
     }
 
     @FXML
     public void actuatorsTub_action()
     {
         App.driver.action(PetraDriver.TUB);
+        flipAnimation(tubToggleButton);
     }
 
     @FXML
     public void actuatorsArm_action()
     {
         App.driver.action(PetraDriver.ARM);
+        flipAnimation(armToggleButton);
     }
 
     @FXML
     public void actuatorsBlocker_action()
     {
         App.driver.action(PetraDriver.BLOCKER);
+        flipAnimation(blockerToggleButton);
     }
 
     @FXML
     public void actuatorsSucker_action()
     {
         App.driver.action(PetraDriver.SUCKER);
+        flipAnimation(suckerButton);
     }
 
     @FXML
     public void actuatorsRollerArmTub_action()
     {
         App.driver.action(PetraDriver.ARM_TUB);
+        flipAnimation(rollerArmTubPositionToggleButton);
     }
 
     @FXML
     public void actuatorsRollerArmR1_action()
     {
         App.driver.action(PetraDriver.ARM_R1);
+        flipAnimation(rollerArmRoller1PositionToggleButton);
     }
 
     @FXML
     public void actuatorsRollerArmR2_action()
     {
         App.driver.action(PetraDriver.ARM_R2);
+        flipAnimation(rollerArmRoller2PositionToggleButton);
     }
 
     @FXML
     public void actuatorsRollerArmR1R2_action()
     {
         App.driver.action(PetraDriver.ARM_R1R2);
+        flipAnimation(rollerArmRoller12PositionToggleButton);
     }
 
     @FXML
     public void actuatorsAutocommit_action()
     {
         App.driver.action(PetraDriver.AUTO_COMMIT);
+        flipAnimation(autocommitToggleButton);
     }
 
     @FXML
     public void actuatorsCommit_action()
     {
         App.driver.action(PetraDriver.COMMIT);
+        flipAnimation(commitButton);
     }
 
     @FXML

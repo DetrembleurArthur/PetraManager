@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
@@ -7,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-panel" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PrimaryController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PrimaryController">
    <children>
-      <Label alignment="CENTER" layoutX="164.0" layoutY="71.0" text="Petra Manager" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="164.0" layoutY="71.0" text="Petra Manager" textAlignment="JUSTIFY">
          <font>
             <Font size="42.0" />
          </font>
@@ -17,7 +18,10 @@
       <TextField fx:id="petraIpTextfield" alignment="CENTER" layoutX="226.0" layoutY="188.0" promptText="ip address of petra" text="10.59.40.64" />
       <TextField fx:id="petraPortTextfield" alignment="CENTER" layoutX="226.0" layoutY="226.0" promptText="port" text="50000" />
       <Label fx:id="errorLabel" alignment="CENTER" layoutX="164.0" layoutY="263.0" prefHeight="17.0" prefWidth="273.0" textAlignment="CENTER" textFill="RED" />
-      <Button fx:id="connectButton" layoutX="251.0" layoutY="287.0" mnemonicParsing="false" onAction="#connectAction" prefHeight="26.0" prefWidth="98.0" text="Connect" />
+      <Button fx:id="connectButton" layoutX="251.0" layoutY="287.0" mnemonicParsing="false" onAction="#connectAction" prefHeight="26.0" prefWidth="98.0" text="Connect">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ProgressIndicator fx:id="connectionIndicator" layoutX="275.0" layoutY="327.0" prefHeight="37.0" prefWidth="50.0" />
    </children>
 </AnchorPane>

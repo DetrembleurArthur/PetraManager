@@ -55,27 +55,22 @@ public class PetraConnectionService extends Service<PetraDriver>
                                 catch(Exception e)
                                 {
                                     updateMessage("connection failed");
-                                    System.out.println("connection failed");
                                 }
                             } catch (NumberFormatException e) {
                                 updateMessage("port must be an integer between 1024 and 65536");
-                                System.out.println("port must be an integer between 1024 and 65536");
                             }
                         } else {
                             updateMessage("port field is empty");
-                            System.out.println("port field is empty");
                         }
                     }
                     catch(UnknownHostException e)
                     {
                         updateMessage("bad ip format");
-                        System.out.println("bad ip format");
                     }
                 }
                 else
                 {
                     updateMessage("ip field is empty");
-                    System.out.println("ip field is empty");
                 }
                 throw new Exception();
             }
