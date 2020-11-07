@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -11,11 +12,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Box?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="816.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="659.0" prefWidth="816.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
    <children>
       <Button fx:id="disconnectButton" layoutX="680.0" layoutY="406.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="22.0" prefWidth="102.0" text="Exit" />
-      <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" styleClass="main-titled-pane" text="Actuators">
+      <TitledPane fx:id="actuatorPanel" alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" styleClass="main-titled-pane" text="Actuators">
          <content>
             <VBox alignment="TOP_CENTER" prefHeight="274.0" prefWidth="402.0" spacing="30.0">
                <children>
@@ -63,12 +65,12 @@
          <content>
             <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="208.0" prefWidth="337.0" vgap="10.0">
                <children>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Sensor 1">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Sensor-1">
                      <content>
                         <Label fx:id="sensor1Label" text="none" textAlignment="CENTER" />
                      </content>
                   </TitledPane>
-                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Sensor 2">
+                  <TitledPane collapsible="false" prefHeight="60.0" prefWidth="82.0" styleClass="sub-titled-pane" text="Sensor-2">
                      <content>
                         <Label fx:id="sensor2Label" text="none" textAlignment="CENTER" />
                      </content>
@@ -157,6 +159,12 @@
          </content>
       </TitledPane>
       <Box fx:id="myBox" depth="50.0" height="50.0" layoutX="731.0" layoutY="364.0" width="50.0" />
+      <TextArea fx:id="scriptTextArea" layoutX="23.0" layoutY="445.0" prefHeight="200.0" prefWidth="635.0" />
+      <Button fx:id="validateScriptButton" layoutX="666.0" layoutY="445.0" mnemonicParsing="false" onAction="#validateScript_action" prefHeight="200.0" prefWidth="136.0" text="Validate">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
    <padding>
       <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

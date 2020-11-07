@@ -81,14 +81,40 @@ public class PetraController implements Initializable
     @FXML
     private Box myBox;
 
+    @FXML
+    private TextArea scriptTextArea;
+
+    @FXML
+    private Button validateScriptButton;
+
+    @FXML
+    private TitledPane actuatorPanel;
+
+    public static PetraController controller;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        controller = this;
         try
         {
             App.stage.setOnCloseRequest(windowEvent -> {
                 disconnect();
             });
+
+            App.thesaurusService.setOnRunning(workerStateEvent -> {
+                validateScriptButton.setText("Stop");
+                //actuatorPanel.setDisable(true);
+            });
+            App.thesaurusService.setOnSucceeded(workerStateEvent ->{
+                validateScriptButton.setText("Validate");
+                //actuatorPanel.setDisable(false);
+            });
+            App.thesaurusService.setOnCancelled(workerStateEvent ->{
+                validateScriptButton.setText("Validate");
+                //actuatorPanel.setDisable(false);
+            });
+
             commitButton.disableProperty().bind(autocommitToggleButton.selectedProperty());
 
             App.petraActuatorsAckService = new PetraActuatorsAckService(App.driver.getActuatorsSocket().getInputStream());
@@ -128,8 +154,7 @@ public class PetraController implements Initializable
             myBox.setMaterial(material);
             myBox.setRotationAxis(myBox.getRotationAxis().add(0.2, 1, 0.8));
             Timeline timeline = new Timeline(new KeyFrame(Duration.ONE, actionEvent -> {
-                myBox.setRotate(myBox.getRotate()+0.075);
-                System.out.println("test");
+                myBox.setRotate(myBox.getRotate()+0.075);;
             }));
             timeline.setCycleCount(Timeline.INDEFINITE);
             timeline.playFromStart();
@@ -137,6 +162,49 @@ public class PetraController implements Initializable
         {
             e.printStackTrace();
         }
+    }
+
+    public boolean captorState(String name)
+    {
+        if(name.equals("C-Sensor-1")) return Integer.parseInt(sensor1Label.getText()) == 1;
+        if(name.equals("C-Sensor-2")) return Integer.parseInt(sensor2Label.getText()) == 1;
+        if(name.equals("C-T")) return Integer.parseInt(tLabel.getText()) == 1;
+        if(name.equals("C-Slot")) return Integer.parseInt(slotLabel.getText()) == 1;
+        if(name.equals("C-Chariot")) return Integer.parseInt(chariotLabel.getText()) == 1;
+        if(name.equals("C-Arm")) return Integer.parseInt(armLabel.getText()) == 1;
+        if(name.equals("C-Diver")) return Integer.parseInt(diverLabel.getText()) == 1;
+        if(name.equals("C-Tub")) return Integer.parseInt(tubLabel.getText()) == 1;
+        return false;
+    }
+
+    public boolean actuatorState(String name)
+    {
+        if(name.equals("A-Roller-1")) return roller1ToggleButton.isSelected();
+        if(name.equals("A-Roller-2")) return roller2ToggleButton.isSelected();
+        if(name.equals("A-Tub")) return tubToggleButton.isSelected();
+        if(name.equals("A-Arm")) return armToggleButton.isSelected();
+        if(name.equals("A-Blocker")) return blockerToggleButton.isSelected();
+        if(name.equals("A-Sucker")) return suckerButton.isSelected();
+        if(name.equals("A-POS-Tub")) return rollerArmTubPositionToggleButton.isSelected();
+        if(name.equals("A-POS-R1")) return rollerArmRoller1PositionToggleButton.isSelected();
+        if(name.equals("A-POS-R2")) return rollerArmRoller2PositionToggleButton.isSelected();
+        if(name.equals("A-POS-R1R2")) return rollerArmRoller12PositionToggleButton.isSelected();
+        return false;
+    }
+
+    public void actuatorActivate(String name)
+    {
+        System.err.println("PUTE: " + name);
+        if(name.equals("A-Roller-1")) roller1ToggleButton.fire();
+        if(name.equals("A-Roller-2")) roller2ToggleButton.fire();
+        if(name.equals("A-Tub")) tubToggleButton.fire();
+        if(name.equals("A-Arm")) armToggleButton.fire();
+        if(name.equals("A-Blocker")) blockerToggleButton.fire();
+        if(name.equals("A-Sucker")) suckerButton.fire();
+        if(name.equals("A-POS-Tub")) rollerArmTubPositionToggleButton.fire();
+        if(name.equals("A-POS-R1")) rollerArmRoller1PositionToggleButton.fire();
+        if(name.equals("A-POS-R2")) rollerArmRoller2PositionToggleButton.fire();
+        if(name.equals("A-POS-R1R2")) rollerArmRoller12PositionToggleButton.fire();
     }
 
     private void flipAnimation(Node node)
@@ -153,6 +221,7 @@ public class PetraController implements Initializable
     @FXML
     public void actuatorsRoller1_action()
     {
+        System.err.println("HZDIUGDGIDZUGZGDYZGDY");
         App.driver.action(PetraDriver.ROLLER1);
         flipAnimation(roller1ToggleButton);
     }
@@ -232,6 +301,26 @@ public class PetraController implements Initializable
     {
         App.driver.action(PetraDriver.COMMIT);
         flipAnimation(commitButton);
+    }
+
+    @FXML
+    public void validateScript_action()
+    {
+        if(validateScriptButton.getText().equals("Validate"))
+        {
+            String code = scriptTextArea.getText();
+            if(!code.isBlank() && !App.thesaurusService.isRunning())
+            {
+                App.thesaurusService.setCode(code);
+                App.thesaurusService.reset();
+                App.thesaurusService.start();
+                flipAnimation(validateScriptButton);
+            }
+        }
+        else
+        {
+            App.thesaurusService.cancel();
+        }
     }
 
     @FXML

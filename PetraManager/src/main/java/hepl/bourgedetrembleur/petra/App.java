@@ -19,6 +19,7 @@ public class App extends Application {
     public static PetraConnectionService petraConnectionService = new PetraConnectionService();
     public static PetraSensorsWatcherService petraSensorsWatcherService = null;
     public static PetraActuatorsAckService petraActuatorsAckService = null;
+    public static ThesaurusService thesaurusService = new ThesaurusService();
 
 
     @Override

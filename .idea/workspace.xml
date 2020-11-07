@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c7905a8-7205-4f5b-ac35-804d577b346a" name="Default Changelist" comment="" />
+    <list default="true" id="4c7905a8-7205-4f5b-ac35-804d577b346a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetraManager/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PetraManager/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetraManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/PetraManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetraManager/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/PetraManager/target/maven-status/maven-compiler-plugin/compile/null/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PetraManager/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/PetraManager/target/maven-status/maven-compiler-plugin/compile/null/inputFiles.lst" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JupyterTrust" id="08478dcc-6197-4920-a0be-4f58766c5d4c" />
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -26,19 +36,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PetraManager" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -49,6 +47,8 @@
       <option name="presentableId" value="Default" />
       <updated>1602331807269</updated>
       <workItem from="1602331808330" duration="239000" />
+      <workItem from="1604672336412" duration="17000" />
+      <workItem from="1604673837308" duration="16000" />
     </task>
     <servers />
   </component>
@@ -56,6 +56,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2660" y="274" key="FileChooserDialogImpl" timestamp="1604673852039">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2660" y="274" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1604673852039" />
     <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1602332047260">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
