@@ -90,6 +90,9 @@ public class PetraController implements Initializable
     @FXML
     private TitledPane actuatorPanel;
 
+    @FXML
+    private ComboBox<String> testsComboBox;
+
     public static PetraController controller;
 
     @Override
@@ -98,6 +101,8 @@ public class PetraController implements Initializable
         controller = this;
         try
         {
+            testsComboBox.getItems().addAll("no", "test 1", "test 2", "test 3", "test 4", "test 5");
+
             App.stage.setOnCloseRequest(windowEvent -> {
                 disconnect();
             });
@@ -113,6 +118,9 @@ public class PetraController implements Initializable
             App.thesaurusService.setOnCancelled(workerStateEvent ->{
                 validateScriptButton.setText("Validate");
                 //actuatorPanel.setDisable(false);
+            });
+            App.thesaurusService.setOnFailed(workerStateEvent -> {
+                validateScriptButton.setText("Validate");
             });
 
             commitButton.disableProperty().bind(autocommitToggleButton.selectedProperty());
@@ -164,47 +172,136 @@ public class PetraController implements Initializable
         }
     }
 
+    @FXML
+    public void change_test_action()
+    {
+        String test = testsComboBox.getSelectionModel().getSelectedItem();
+        if(test.equals("test 1"))
+        {
+            scriptTextArea.setText(
+                    "active roller1\n" +
+                    "active roller2\n" +
+                    "wait 1000\n" +
+                    "stop roller1\n" +
+                    "stop roller2\n" +
+                    "wait 500\n" +
+                    "active arm\n" +
+                    "wait 2000\n" +
+                    "stop arm\n" +
+                    "wait 500\n" +
+                    "active blocker\n" +
+                    "wait 1000\n" +
+                    "stop blocker\n" +
+                    "wait 500\n" +
+                    "active tub\n" +
+                    "wait 2500\n" +
+                    "stop tub");
+        }
+        else if(test.equals("test 2"))
+        {
+            scriptTextArea.setText(
+                    "active posr1\n" +
+                    "wait 3000\n" +
+                    "active posr1r2\n" +
+                    "wait 3000\n" +
+                    "active posr2\n" +
+                    "wait 3000\n" +
+                    "active postub\n" +
+                    "wait 10000"
+                    );
+        }
+        else if(test.equals("test 3"))
+        {
+            scriptTextArea.setText(
+                    "loop !bac\n" +
+                    "\tactive postub\n" +
+                    "\twait 3500\n"+
+                    "\tactive tub\n" +
+                    "\twait 3000\n" +
+                    "\tactive sucker\n" +
+                    "\twait 500\n" +
+                    "\tstop tub\n" +
+                    "\twait 2000\n" +
+                    "\tactive posr1\n" +
+                    "\twait 3500\n" +
+                    "\tactive roller1\n" +
+                    "\twait 2000\n" +
+                    "\tstop sucker\n" +
+                    "endloop\n" +
+                    "active postub\n" +
+                    "stop roller1");
+        }
+        else if(test.equals("test 4"))
+        {
+            scriptTextArea.setText(
+                    "loop 2\n" +
+                    "switch roller2\n" +
+                    "wait 1000\n" +
+                    "switch arm\n" +
+                    "wait 1500\n" +
+                    "endloop"
+            );
+        }
+        else if(test.equals("test 5"))
+        {
+            scriptTextArea.setText(
+                    "if bac\n" +
+                    "active roller1\n" +
+                    "endif\n" +
+                    "loop !sensor2\n" +
+                    "endloop\n" +
+                    "stop roller1\n"
+            );
+        }
+        else
+        {
+            scriptTextArea.setText("");
+        }
+    }
+
     public boolean captorState(String name)
     {
-        if(name.equals("C-Sensor-1")) return Integer.parseInt(sensor1Label.getText()) == 1;
-        if(name.equals("C-Sensor-2")) return Integer.parseInt(sensor2Label.getText()) == 1;
-        if(name.equals("C-T")) return Integer.parseInt(tLabel.getText()) == 1;
-        if(name.equals("C-Slot")) return Integer.parseInt(slotLabel.getText()) == 1;
-        if(name.equals("C-Chariot")) return Integer.parseInt(chariotLabel.getText()) == 1;
-        if(name.equals("C-Arm")) return Integer.parseInt(armLabel.getText()) == 1;
-        if(name.equals("C-Diver")) return Integer.parseInt(diverLabel.getText()) == 1;
-        if(name.equals("C-Tub")) return Integer.parseInt(tubLabel.getText()) == 1;
+        name = name.toLowerCase();
+        if(name.equals("sensor1")) return Integer.parseInt(sensor1Label.getText()) == 1;
+        if(name.equals("sensor2")) return Integer.parseInt(sensor2Label.getText()) == 1;
+        if(name.equals("t")) return Integer.parseInt(tLabel.getText()) == 1;
+        if(name.equals("slot")) return Integer.parseInt(slotLabel.getText()) == 1;
+        if(name.equals("chariot")) return Integer.parseInt(chariotLabel.getText()) == 1;
+        if(name.equals("armpos")) return Integer.parseInt(armLabel.getText()) == 1;
+        if(name.equals("diver")) return Integer.parseInt(diverLabel.getText()) == 1;
+        if(name.equals("bac")) return Integer.parseInt(tubLabel.getText()) == 1;
         return false;
     }
 
     public boolean actuatorState(String name)
     {
-        if(name.equals("A-Roller-1")) return roller1ToggleButton.isSelected();
-        if(name.equals("A-Roller-2")) return roller2ToggleButton.isSelected();
-        if(name.equals("A-Tub")) return tubToggleButton.isSelected();
-        if(name.equals("A-Arm")) return armToggleButton.isSelected();
-        if(name.equals("A-Blocker")) return blockerToggleButton.isSelected();
-        if(name.equals("A-Sucker")) return suckerButton.isSelected();
-        if(name.equals("A-POS-Tub")) return rollerArmTubPositionToggleButton.isSelected();
-        if(name.equals("A-POS-R1")) return rollerArmRoller1PositionToggleButton.isSelected();
-        if(name.equals("A-POS-R2")) return rollerArmRoller2PositionToggleButton.isSelected();
-        if(name.equals("A-POS-R1R2")) return rollerArmRoller12PositionToggleButton.isSelected();
+        name = name.toLowerCase();
+        if(name.equals("roller1")) return roller1ToggleButton.isSelected();
+        if(name.equals("roller2")) return roller2ToggleButton.isSelected();
+        if(name.equals("tub")) return tubToggleButton.isSelected();
+        if(name.equals("arm")) return armToggleButton.isSelected();
+        if(name.equals("blocker")) return blockerToggleButton.isSelected();
+        if(name.equals("sucker")) return suckerButton.isSelected();
+        if(name.equals("postub")) return rollerArmTubPositionToggleButton.isSelected();
+        if(name.equals("posr1")) return rollerArmRoller1PositionToggleButton.isSelected();
+        if(name.equals("posr2")) return rollerArmRoller2PositionToggleButton.isSelected();
+        if(name.equals("posr1r2")) return rollerArmRoller12PositionToggleButton.isSelected();
         return false;
     }
 
     public void actuatorActivate(String name)
     {
-        System.err.println("PUTE: " + name);
-        if(name.equals("A-Roller-1")) roller1ToggleButton.fire();
-        if(name.equals("A-Roller-2")) roller2ToggleButton.fire();
-        if(name.equals("A-Tub")) tubToggleButton.fire();
-        if(name.equals("A-Arm")) armToggleButton.fire();
-        if(name.equals("A-Blocker")) blockerToggleButton.fire();
-        if(name.equals("A-Sucker")) suckerButton.fire();
-        if(name.equals("A-POS-Tub")) rollerArmTubPositionToggleButton.fire();
-        if(name.equals("A-POS-R1")) rollerArmRoller1PositionToggleButton.fire();
-        if(name.equals("A-POS-R2")) rollerArmRoller2PositionToggleButton.fire();
-        if(name.equals("A-POS-R1R2")) rollerArmRoller12PositionToggleButton.fire();
+        name = name.toLowerCase();
+        if(name.equals("roller1")) roller1ToggleButton.fire();
+        if(name.equals("roller2")) roller2ToggleButton.fire();
+        if(name.equals("tub")) tubToggleButton.fire();
+        if(name.equals("arm")) armToggleButton.fire();
+        if(name.equals("blocker")) blockerToggleButton.fire();
+        if(name.equals("sucker")) suckerButton.fire();
+        if(name.equals("postub")) rollerArmTubPositionToggleButton.fire();
+        if(name.equals("posr1")) rollerArmRoller1PositionToggleButton.fire();
+        if(name.equals("posr2")) rollerArmRoller2PositionToggleButton.fire();
+        if(name.equals("posr1r2")) rollerArmRoller12PositionToggleButton.fire();
     }
 
     private void flipAnimation(Node node)
@@ -221,7 +318,6 @@ public class PetraController implements Initializable
     @FXML
     public void actuatorsRoller1_action()
     {
-        System.err.println("HZDIUGDGIDZUGZGDYZGDY");
         App.driver.action(PetraDriver.ROLLER1);
         flipAnimation(roller1ToggleButton);
     }
