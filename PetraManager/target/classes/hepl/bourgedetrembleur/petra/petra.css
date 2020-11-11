@@ -4,6 +4,18 @@
     -fx-text-fill: white;
 }
 
+.label-captor-stop
+{
+    -fx-text-fill: red;
+    -fx-font-size: 22;
+}
+
+.label-captor-start
+{
+    -fx-text-fill: lime;
+    -fx-font-size: 22;
+}
+
 .text-area .scroll-pane
 {
     -fx-background-color: #336;
@@ -16,7 +28,7 @@
 
 .text-area
 {
-    -fx-font-size: 16;
+    -fx-font-size: 14;
     -fx-background-radius: 10px;
 }
 

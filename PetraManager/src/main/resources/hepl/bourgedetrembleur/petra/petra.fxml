@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Box?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="712.0" prefWidth="834.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="725.0" prefWidth="834.0" styleClass="main-panel" stylesheets="@petra.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hepl.bourgedetrembleur.petra.PetraController">
    <children>
       <Button fx:id="disconnectButton" layoutX="680.0" layoutY="406.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="22.0" prefWidth="102.0" text="Exit" />
       <TitledPane fx:id="actuatorPanel" alignment="TOP_LEFT" animated="false" collapsible="false" layoutX="23.0" layoutY="14.0" prefHeight="255.0" prefWidth="404.0" styleClass="main-titled-pane" text="Actuators">
@@ -190,6 +190,11 @@
             </Tab>
         </tabs>
       </TabPane>
+      <Label fx:id="scriptLabel" alignment="CENTER" layoutX="23.0" layoutY="688.0" prefHeight="17.0" prefWidth="619.0" text="no script running" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
    <padding>
       <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

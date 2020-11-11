@@ -93,6 +93,9 @@ public class PetraController implements Initializable
     @FXML
     private ComboBox<String> testsComboBox;
 
+    @FXML
+    private Label scriptLabel;
+
     public static PetraController controller;
 
     @Override
@@ -106,6 +109,8 @@ public class PetraController implements Initializable
             App.stage.setOnCloseRequest(windowEvent -> {
                 disconnect();
             });
+
+            scriptLabel.textProperty().bind(App.thesaurusService.messageProperty());
 
             App.thesaurusService.setOnRunning(workerStateEvent -> {
                 validateScriptButton.setText("Stop");
@@ -147,13 +152,21 @@ public class PetraController implements Initializable
             connectionLabel.textProperty().bind(App.petraSensorsWatcherService.messageProperty());
             App.petraSensorsWatcherService.valueProperty().addListener((observableValue, integer, t1) -> {
                 sensor1Label.setText(Integer.toString(t1 & 1));
+                switchLabelStyleClass(sensor1Label);
                 sensor2Label.setText(Integer.toString((t1 >> 1) & 1));
+                switchLabelStyleClass(sensor2Label);
                 tLabel.setText(Integer.toString((t1 >> 2) & 1));
+                switchLabelStyleClass(tLabel);
                 slotLabel.setText(Integer.toString((t1 >> 3) & 1));
+                switchLabelStyleClass(slotLabel);
                 chariotLabel.setText(Integer.toString((t1 >> 4) & 1));
+                switchLabelStyleClass(chariotLabel);
                 armLabel.setText(Integer.toString((t1 >> 5) & 1));
+                switchLabelStyleClass(armLabel);
                 diverLabel.setText(Integer.toString((t1 >> 6) & 1));
+                switchLabelStyleClass(diverLabel);
                 tubLabel.setText(Integer.toString((t1 >> 7) & 1));
+                switchLabelStyleClass(tubLabel);
             });
             App.petraSensorsWatcherService.start();
 
@@ -169,6 +182,20 @@ public class PetraController implements Initializable
         } catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    private void switchLabelStyleClass(Label label)
+    {
+        if(label.getText().equals("0"))
+        {
+            label.getStyleClass().remove("label-captor-start");
+            label.getStyleClass().add("label-captor-stop");
+        }
+        else
+        {
+            label.getStyleClass().remove("label-captor-stop");
+            label.getStyleClass().add("label-captor-start");
         }
     }
 

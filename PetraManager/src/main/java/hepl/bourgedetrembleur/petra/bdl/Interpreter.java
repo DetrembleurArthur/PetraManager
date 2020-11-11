@@ -1,5 +1,9 @@
 package hepl.bourgedetrembleur.petra.bdl;
 
+import hepl.bourgedetrembleur.petra.PetraController;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -8,13 +12,24 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Stack;
 
-public class Interpreter
+public class Interpreter extends Task<Void>
 {
     private Stack<Context> stack;
+    private String code;
 
-    public Interpreter()
+    public Interpreter(String code)
     {
         stack = new Stack<>();
+        this.code = code;
+    }
+
+
+    @Override
+    protected Void call() throws Exception
+    {
+        updateMessage("begin script");
+        interpret(code);
+        return null;
     }
 
     public static String load(String filename)
@@ -35,6 +50,21 @@ public class Interpreter
         return null;
     }
 
+    public boolean test_device(String deviceId)
+    {
+        boolean not = deviceId.charAt(0) == '!';
+        deviceId = deviceId.replace("!", "");
+        if(!PetraController.controller.actuatorState(deviceId))
+        {
+            boolean ret = PetraController.controller.captorState(deviceId);
+            System.out.println(ret);
+            if(not) return !ret;
+            return ret;
+        }
+        System.out.println(!not);
+        return !not;
+    }
+
     public void interpret(String code)
     {
         stack.clear();
@@ -44,8 +74,14 @@ public class Interpreter
 
         for(int i = 0; i < tokens.length; i++)
         {
+            if(isCancelled())
+            {
+                updateMessage("script canceled");
+                return;
+            }
             if(!tokens[i].isBlank())
             {
+                updateMessage(tokens[i]);
                 var line = tokens[i].split(" ");
                 if(!stack.peek().stop_execution)
                 {
@@ -69,8 +105,29 @@ public class Interpreter
                                 Thread.sleep(Integer.parseInt(line[1]));
                             } catch (InterruptedException e)
                             {
-                                e.printStackTrace();
+
                             }
+                            break;
+
+                        case "active":
+                        case "+":
+                            if(!PetraController.controller.actuatorState(line[1]))
+                            {
+                                PetraController.controller.actuatorActivate(line[1]);
+                            }
+                            break;
+
+                        case "stop":
+                        case "-":
+                            if(PetraController.controller.actuatorState(line[1]))
+                            {
+                                PetraController.controller.actuatorActivate(line[1]);
+                            }
+                            break;
+
+                        case "switch":
+                        case "*":
+                            PetraController.controller.actuatorActivate(line[1]);
                             break;
 
 
@@ -82,6 +139,8 @@ public class Interpreter
                             Context before = stack.peek();
                             stack.push(new Context());
 
+
+
                             try
                             {
                                 if(!before.evaluate(Integer.parseInt(line[1])))
@@ -92,7 +151,7 @@ public class Interpreter
                             }
                             catch (NumberFormatException e)
                             {
-                                if(line[1].equals("false"))
+                                if(!test_device(line[1]))
                                 {
                                     stack.peek().stop_execution = true;
                                     stack.peek().else_enable = true;
@@ -112,26 +171,52 @@ public class Interpreter
                         case "loop":
                             stack.push(new Context());
                             stack.peek().condition = line[1];
-                            if(!stack.peek().evaluate())
+                            try
                             {
-                                stack.peek().stop_execution = true;
-                                stack.peek().else_enable = true;
+                                if (!stack.peek().evaluate())
+                                {
+                                    stack.peek().stop_execution = true;
+                                    stack.peek().else_enable = true;
+                                } else
+                                {
+                                    stack.peek().begloop = i;
+                                }
                             }
-                            else
+                            catch (NumberFormatException e)
                             {
-                                stack.peek().begloop = i;
+                                if(!test_device(line[1]))
+                                {
+                                    stack.peek().stop_execution = true;
+                                    stack.peek().else_enable = true;
+                                } else
+                                {
+                                    stack.peek().begloop = i;
+                                }
                             }
                             break;
 
                         case "endloop":
                             stack.peek().i++;
-                            if(stack.peek().evaluate())
+                            try
                             {
-                                i = stack.peek().begloop;
+                                if (stack.peek().evaluate())
+                                {
+                                    i = stack.peek().begloop;
+                                } else
+                                {
+                                    stack.pop();
+                                }
                             }
-                            else
+                            catch (NumberFormatException e)
                             {
-                                stack.pop();
+                                if(test_device(stack.peek().condition))
+                                {
+                                    i = stack.peek().begloop;
+                                }
+                                else
+                                {
+                                    stack.pop();
+                                }
                             }
                     }
                 }
@@ -158,11 +243,6 @@ public class Interpreter
                 }
             }
         }
-    }
-
-    public static void main(String[] args)
-    {
-        Interpreter interpreter = new Interpreter();
-        interpreter.interpret(Objects.requireNonNull(load("src/main/java/hepl/bourgedetrembleur/petra/code.txt")));
+        updateMessage("script finished");
     }
 }

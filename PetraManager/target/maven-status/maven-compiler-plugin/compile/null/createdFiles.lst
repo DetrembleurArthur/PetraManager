@@ -1,11 +1,12 @@
 hepl\bourgedetrembleur\petra\App.class
 hepl\bourgedetrembleur\petra\PetraConnectionService.class
 hepl\bourgedetrembleur\petra\ThesaurusService.class
+hepl\bourgedetrembleur\petra\bdl\Interpreter.class
 hepl\bourgedetrembleur\petra\PetraDriver.class
+hepl\bourgedetrembleur\petra\bdl\Context.class
 hepl\bourgedetrembleur\petra\PetraSensorsWatcherService$1.class
 hepl\bourgedetrembleur\petra\PetraConnectionService$1.class
 hepl\bourgedetrembleur\petra\PetraActuatorsAckService$1.class
-hepl\bourgedetrembleur\petra\ThesaurusService$1.class
 hepl\bourgedetrembleur\petra\PetraController.class
 hepl\bourgedetrembleur\petra\PetraActuatorsAckService.class
 hepl\bourgedetrembleur\petra\PetraSensorsWatcherService.class
