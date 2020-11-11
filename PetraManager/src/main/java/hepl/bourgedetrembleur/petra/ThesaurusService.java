@@ -70,7 +70,7 @@ public class ThesaurusService extends Service<Void>
             {
                 text = text.replace("\n", ";").replace("\t", "");
                 String[] tokens = text.split(";");
-                boolean skip = false;
+                int skip = 0;
                 int i = 0;
                 int remember = -1;
                 boolean myState = false;
@@ -87,7 +87,7 @@ public class ThesaurusService extends Service<Void>
                         System.err.println("TOKEN: " + tokens[j]);
                         String[] expr = tokens[j].split(" ");
                         System.err.println("SKIP: " + skip);
-                        if(!skip)
+                        if(skip == 0)
                         {
                             System.err.println("COMMAND: " + expr[0]);
                             switch (expr[0].toLowerCase())
@@ -121,15 +121,15 @@ public class ThesaurusService extends Service<Void>
                                     if(expr.length < 2) continue;
                                     if(!calculate(expr[1]))
                                     {
-                                        skip = true;
+                                        skip = 1;
                                     }
                                     break;
                                 case "loop":
                                     if(expr.length < 2) continue;
-                                    if(!loop(i, expr[1]))
+                                    if(!calculate(expr[1]))
                                     {
                                         i = 0;
-                                        skip = true;
+                                        skip = 1;
                                     }
                                     else
                                     {
@@ -140,21 +140,22 @@ public class ThesaurusService extends Service<Void>
                                     j = remember - 1;
                                     i++;
                                     break;
-                                case "else":
-                                    skip = true;
-                                    break;
                             }
                         }
                         else
                         {
                             switch(expr[0].toLowerCase())
                             {
-                                case "else":
                                 case "endif":
                                 case "endloop":
-                                    skip = false;
+                                    skip--;
+                                    break;
+                                case "if":
+                                case "loop":
+                                    skip++;
                                     break;
                             }
+                            if(skip < 0) skip = 0;
                         }
                     }
                 }
