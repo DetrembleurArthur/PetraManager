@@ -187,7 +187,7 @@ public class PetraController implements Initializable
 
     private void switchLabelStyleClass(Label label)
     {
-        if(label.getText().equals("0"))
+        if(label.getText().contains("0"))
         {
             label.getStyleClass().remove("label-captor-start");
             label.getStyleClass().add("label-captor-stop");
@@ -227,19 +227,6 @@ public class PetraController implements Initializable
         else if(test.equals("test 2"))
         {
             scriptTextArea.setText(
-                    "active posr1\n" +
-                    "wait 3000\n" +
-                    "active posr1r2\n" +
-                    "wait 3000\n" +
-                    "active posr2\n" +
-                    "wait 3000\n" +
-                    "active postub\n" +
-                    "wait 10000"
-                    );
-        }
-        else if(test.equals("test 3"))
-        {
-            scriptTextArea.setText(
                     "loop !bac\n" +
                     "\tactive postub\n" +
                     "\twait 3500\n"+
@@ -258,26 +245,52 @@ public class PetraController implements Initializable
                     "active postub\n" +
                     "stop roller1");
         }
+        else if(test.equals("test 3"))
+        {
+            scriptTextArea.setText(
+                    "loop !bac\n" +
+                    "\tactive postub\n" +
+                    "\twait 3500\n"+
+                    "\tactive tub\n" +
+                    "\twait 3000\n" +
+                    "\tactive sucker\n" +
+                    "\twait 500\n" +
+                    "\tstop tub\n" +
+                    "\twait 2000\n" +
+                    "\tactive posr1\n" +
+                    "\twait 3500\n" +
+                    "\tactive roller1\n" +
+                    "\twait 2000\n" +
+                    "\tstop sucker\n" +
+                    "\tloop !sensor2\n" +
+                    "\tendloop\n" +
+                    "\twait 500\n" +
+                    "\tstop roller1\n" +
+                    "endloop\n" +
+                    "active postub\n");
+        }
         else if(test.equals("test 4"))
         {
             scriptTextArea.setText(
-                    "loop 2\n" +
-                    "switch roller2\n" +
-                    "wait 1000\n" +
-                    "switch arm\n" +
-                    "wait 1500\n" +
-                    "endloop"
+                    "if !bac\n" +
+                    "\tif roller2\n" +
+                    "\t\tswitch arm\n" +
+                    "\tendif\n" +
+                    "endif"
             );
         }
         else if(test.equals("test 5"))
         {
             scriptTextArea.setText(
-                    "if bac\n" +
-                    "active roller1\n" +
-                    "endif\n" +
-                    "loop !sensor2\n" +
+                    "loop 5\n" +
+                    "\tif 2\n" +
+                    "\t\tswitch roller2\n" +
+                    "\telse\n" +
+                    "\t\tswitch roller1\n" +
+                    "\tendif\n" +
+                    "\tswitch tub\n" +
                     "endloop\n" +
-                    "stop roller1\n"
+                    "alert hello-world!"
             );
         }
         else
@@ -329,6 +342,13 @@ public class PetraController implements Initializable
         if(name.equals("posr1")) rollerArmRoller1PositionToggleButton.fire();
         if(name.equals("posr2")) rollerArmRoller2PositionToggleButton.fire();
         if(name.equals("posr1r2")) rollerArmRoller12PositionToggleButton.fire();
+        try
+        {
+            Thread.sleep(50);
+        } catch (InterruptedException e)
+        {
+
+        }
     }
 
     private void flipAnimation(Node node)

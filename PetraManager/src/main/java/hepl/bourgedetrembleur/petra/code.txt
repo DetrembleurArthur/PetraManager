@@ -1,0 +1,14 @@
+
+
+loop 5
+	if 2
+		print HELLO!!!
+	else
+		loop 10
+			print +
+		endloop
+	endif
+	trace
+endloop
+beep
+alert end
