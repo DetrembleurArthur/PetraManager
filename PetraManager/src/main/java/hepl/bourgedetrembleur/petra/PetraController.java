@@ -189,13 +189,11 @@ public class PetraController implements Initializable
     {
         if(label.getText().contains("0"))
         {
-            label.getStyleClass().remove("label-captor-start");
-            label.getStyleClass().add("label-captor-stop");
+            label.setStyle("-fx-text-fill: red;-fx-font-size: 20");
         }
         else
         {
-            label.getStyleClass().remove("label-captor-stop");
-            label.getStyleClass().add("label-captor-start");
+            label.setStyle("-fx-text-fill: #00ff00;-fx-font-size: 20");
         }
     }
 
@@ -289,6 +287,7 @@ public class PetraController implements Initializable
                     "\t\tswitch roller1\n" +
                     "\tendif\n" +
                     "\tswitch tub\n" +
+                    "\twait 500\n" +
                     "endloop\n" +
                     "alert hello-world!"
             );

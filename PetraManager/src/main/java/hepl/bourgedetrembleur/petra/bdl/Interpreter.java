@@ -1,7 +1,6 @@
 package hepl.bourgedetrembleur.petra.bdl;
 
 import hepl.bourgedetrembleur.petra.PetraController;
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Stack;
 
 public class Interpreter extends Task<Void>
@@ -28,7 +26,14 @@ public class Interpreter extends Task<Void>
     protected Void call() throws Exception
     {
         updateMessage("begin script");
-        interpret(code);
+        try
+        {
+            interpret(code);
+        } catch (Exception e)
+        {
+            updateMessage(e.getMessage());
+            throw e;
+        }
         return null;
     }
 
@@ -57,7 +62,6 @@ public class Interpreter extends Task<Void>
         if(!PetraController.controller.actuatorState(deviceId))
         {
             boolean ret = PetraController.controller.captorState(deviceId);
-            System.out.println(ret);
             if(not) return !ret;
             return ret;
         }
@@ -65,7 +69,12 @@ public class Interpreter extends Task<Void>
         return !not;
     }
 
-    public void interpret(String code)
+    public void check_param(String cmd, int goal, int current) throws Exception
+    {
+        if(goal != current) throw new Exception("number of param of " + cmd + " must be " + goal);
+    }
+
+    public void interpret(String code) throws Exception
     {
         stack.clear();
         stack.push(new Context());
@@ -89,6 +98,7 @@ public class Interpreter extends Task<Void>
                     switch (line[0])
                     {
                         case "alert":
+                            check_param("alert", 1, line.length-1);
                             JOptionPane.showMessageDialog(null, line[1]);
                             break;
                         case "exit":
@@ -102,6 +112,7 @@ public class Interpreter extends Task<Void>
                         case "wait":
                             try
                             {
+                                check_param("alert", 1, line.length-1);
                                 Thread.sleep(Integer.parseInt(line[1]));
                             } catch (InterruptedException e)
                             {
@@ -111,6 +122,7 @@ public class Interpreter extends Task<Void>
 
                         case "active":
                         case "+":
+                            check_param("alert", 1, line.length-1);
                             if(!PetraController.controller.actuatorState(line[1]))
                             {
                                 PetraController.controller.actuatorActivate(line[1]);
@@ -119,6 +131,7 @@ public class Interpreter extends Task<Void>
 
                         case "stop":
                         case "-":
+                            check_param("alert", 1, line.length-1);
                             if(PetraController.controller.actuatorState(line[1]))
                             {
                                 PetraController.controller.actuatorActivate(line[1]);
@@ -127,15 +140,18 @@ public class Interpreter extends Task<Void>
 
                         case "switch":
                         case "*":
+                            check_param("alert", 1, line.length-1);
                             PetraController.controller.actuatorActivate(line[1]);
                             break;
 
 
                         case "print":
+                            check_param("alert", 1, line.length-1);
                             System.err.println(line[1]);
                             break;
 
                         case "if":
+                            check_param("alert", 1, line.length-1);
                             Context before = stack.peek();
                             stack.push(new Context());
 
@@ -169,6 +185,7 @@ public class Interpreter extends Task<Void>
                             break;
 
                         case "loop":
+                            check_param("alert", 1, line.length-1);
                             stack.push(new Context());
                             stack.peek().condition = line[1];
                             try
