@@ -5,9 +5,6 @@ import javafx.concurrent.Task;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Stack;
 
 public class Interpreter extends Task<Void>
@@ -20,7 +17,6 @@ public class Interpreter extends Task<Void>
         stack = new Stack<>();
         this.code = code;
     }
-
 
     @Override
     protected Void call() throws Exception
@@ -37,22 +33,15 @@ public class Interpreter extends Task<Void>
         return null;
     }
 
-    public static String load(String filename)
+    public void wait_device(String s)
     {
-        try
+        while(test_device(s))
         {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
-            String buffer = "";
-            String content = "";
-            while((buffer = reader.readLine()) != null)
-                content += buffer+";";
-            System.err.println(content);
-            return content;
-        } catch (IOException e)
-        {
-            e.printStackTrace();
+            if(isCancelled())
+            {
+                return;
+            }
         }
-        return null;
     }
 
     public boolean test_device(String deviceId)
@@ -91,11 +80,12 @@ public class Interpreter extends Task<Void>
             if(!tokens[i].isBlank())
             {
                 updateMessage(tokens[i]);
+                while(tokens[i].indexOf(' ') == 0)
+                    tokens[i] = tokens[i].replaceFirst(" ", "");
                 var line = tokens[i].split(" ");
                 if(!stack.peek().stop_execution)
                 {
-                    //System.err.println("> " + line[0]);
-                    switch (line[0])
+                    switch (line[0].toLowerCase())
                     {
                         case "alert":
                             check_param("alert", 1, line.length-1);
@@ -112,17 +102,21 @@ public class Interpreter extends Task<Void>
                         case "wait":
                             try
                             {
-                                check_param("alert", 1, line.length-1);
+                                check_param("wait", 1, line.length-1);
                                 Thread.sleep(Integer.parseInt(line[1]));
-                            } catch (InterruptedException e)
+                            } catch (InterruptedException ignored)
                             {
 
+                            }
+                            catch(NumberFormatException e)
+                            {
+                                wait_device(line[1]);
                             }
                             break;
 
                         case "active":
                         case "+":
-                            check_param("alert", 1, line.length-1);
+                            check_param("active", 1, line.length-1);
                             if(!PetraController.controller.actuatorState(line[1]))
                             {
                                 PetraController.controller.actuatorActivate(line[1]);
@@ -131,7 +125,7 @@ public class Interpreter extends Task<Void>
 
                         case "stop":
                         case "-":
-                            check_param("alert", 1, line.length-1);
+                            check_param("stop", 1, line.length-1);
                             if(PetraController.controller.actuatorState(line[1]))
                             {
                                 PetraController.controller.actuatorActivate(line[1]);
@@ -140,22 +134,20 @@ public class Interpreter extends Task<Void>
 
                         case "switch":
                         case "*":
-                            check_param("alert", 1, line.length-1);
+                            check_param("switch", 1, line.length-1);
                             PetraController.controller.actuatorActivate(line[1]);
                             break;
 
 
                         case "print":
-                            check_param("alert", 1, line.length-1);
+                            check_param("print", 1, line.length-1);
                             System.err.println(line[1]);
                             break;
 
                         case "if":
-                            check_param("alert", 1, line.length-1);
+                            check_param("if", 1, line.length-1);
                             Context before = stack.peek();
                             stack.push(new Context());
-
-
 
                             try
                             {
@@ -185,7 +177,7 @@ public class Interpreter extends Task<Void>
                             break;
 
                         case "loop":
-                            check_param("alert", 1, line.length-1);
+                            check_param("loop", 1, line.length-1);
                             stack.push(new Context());
                             stack.peek().condition = line[1];
                             try
@@ -239,8 +231,7 @@ public class Interpreter extends Task<Void>
                 }
                 else
                 {
-                    //System.err.println("< " + line[0]);
-                    switch (line[0])
+                    switch (line[0].toLowerCase())
                     {
                         case "if":
                         case "loop":

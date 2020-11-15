@@ -28,7 +28,6 @@ public class ThesaurusService extends Service<Void>
         this.code = code;
     }
 
-
     @Override
     protected Task<Void> createTask()
     {
